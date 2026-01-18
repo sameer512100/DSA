@@ -1,0 +1,35 @@
+# Executables
+*.exe
+*.out
+*.app
+
+# Object files
+*.o
+*.obj
+*.ko
+*.so
+*.so.*
+
+# Compiled files
+*.class
+*.pyc
+*.pyo
+*.pyd
+
+# Build directories
+/build/
+/dist/
+/Debug/
+/Release/
+/.vs/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
