@@ -8,6 +8,8 @@ Note: A subarray is a continuous part of an array.
 
 */
 
+
+
 int main() {
     int n;
     cout<<"enter the number of elements:";
