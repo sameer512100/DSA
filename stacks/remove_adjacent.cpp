@@ -45,7 +45,15 @@ string removeDuplicates(string s)
     return res;
 }
 
-int main() {
-    
+int main()
+{
+    string s;
+    cout << "Enter the string: ";
+    cin >> s;
+
+    string result = removeDuplicates(s);
+
+    cout << "Final string after removing duplicates: " << result << endl;
+
     return 0;
 }
