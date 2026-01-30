@@ -1,45 +1,80 @@
+#include <bits/stdc++.h>
+using namespace std;
+
 class Solution
 {
 public:
+    vector<vector<int>> result;
+    void twoSum(vector<int> &nums, int target, int i, int j)
+    {
+        while (i < j)
+        {
+            int sum = nums[i] + nums[j];
+            if (sum > target)
+            {
+                j--;
+            }
+            else if (sum < target)
+            {
+                i++;
+            }
+            else
+            {
+                // remove duplicates first
+                while (i < j && nums[i] == nums[i + 1])
+                {
+                    i++;
+                }
+                while (i < j && nums[j] == nums[j - 1])
+                {
+                    j--;
+                }
+                result.push_back({-target, nums[i], nums[j]});
+                i++;
+                j--;
+            }
+        }
+    }
     vector<vector<int>> threeSum(vector<int> &nums)
     {
         if (nums.size() < 3)
+        {
             return {};
-
-        vector<vector<int>> ans;
-
-        ranges::sort(nums);
-
-        for (int i = 0; i + 2 < nums.size(); ++i)
+        }
+        result.clear();
+        int n = nums.size();
+        sort(begin(nums), end(nums));
+        for (int i = 0; i < n; i++)
         {
             if (i > 0 && nums[i] == nums[i - 1])
-                continue;
-            // Choose nums[i] as the first number in the triplet, then search the
-            // remaining numbers in [i + 1, n - 1].
-            int l = i + 1;
-            int r = nums.size() - 1;
-            while (l < r)
             {
-                const int sum = nums[i] + nums[l] + nums[r];
-                if (sum == 0)
-                {
-                    ans.push_back({nums[i], nums[l++], nums[r--]});
-                    while (l < r && nums[l] == nums[l - 1])
-                        ++l;
-                    while (l < r && nums[r] == nums[r + 1])
-                        --r;
-                }
-                else if (sum < 0)
-                {
-                    ++l;
-                }
-                else
-                {
-                    --r;
-                }
+                continue;
             }
+            // fixing one element
+            /*
+            easy => ( 0 = N1+N2+N3 ) => OUR GOAL
+            WE TAKE ONE ELEM
+            & search for other 2 elems which gives -N1 ( N2+N3 = -N1 )
+            */
+            int n1 = nums[i];
+            int target = -n1;
+            twoSum(nums, target, i + 1, n - 1);
         }
-
-        return ans;
+        return result;
     }
 };
+
+int main() {
+    vector<int> nums = {-1, 0, 1, 2, -1, -4};
+    Solution sol;
+    vector<vector<int>> result = sol.threeSum(nums);
+
+    for (auto& triplet : result) {
+        for (int num : triplet) {
+            cout << num << " ";
+        }
+        cout << "\n";
+    }
+
+    return 0;
+}
