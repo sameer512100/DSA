@@ -1,0 +1,52 @@
+class Solution
+{
+public:
+    int findKthPositive(vector<int> &arr, int k)
+    {
+        int low = 0, high = arr.size() - 1;
+        while (low <= high)
+        {
+            int mid = (low + high) / 2;
+            int missing = arr[mid] - (mid + 1);
+            if (missing < k)
+            {
+                low = mid + 1;
+            }
+            else
+            {
+                high = mid - 1;
+            }
+        }
+        return low + k;
+    }
+};
+
+/*GIVEN AN ARRAY LIKE
+[5,7,9,10]
+AND I ASK YOU WHATS THE 5TH MISSING NUMBER?
+1,2,3,4,6 = MISSING
+5TH MISSING IS 6
+SO WE ARE RETURNING IT AS ANS
+
+THE INTUITION FOR BINARY SEARCH:
+SEE ORIGINALLY THE ARRAY SHOULD'VE BEEN 
+[1,2,3,4] = RIGHT !!
+BUT THE ARRAY IS [5,7,9,10]
+SO WE HAVE TO KNOW HOW MANY NUMBERS ARE MISSING AT EACH NUMBER IN THE ARRAY
+SEE
+AT 0TH INDEX, WE HAVE 5
+BUT THE ACUTAL NUMBER THAT SHOULD BE PRESENT THERE IS 1
+SO HOW MANY NUMBERS WERE MISSING THEN?
+5-1 = 4 RIGHT !
+PREVIOUSLY 4 WERE NOT THERE,THATS WHY WE HAVE 5 THERE
+YUP 
+THIS IS THE INTUITION
+FOR EVERY NUMBER IN THE ORIGINAL ARRAY
+MISSING NUMMBERS = NUMBER-(INDEX+1)
+INDEX+1 = NTH NUMBER...
+SO BASED ON HOW MANY NUMBERS WERE MISSING PREVIOUSLY
+WE DO THE BS
+IF I COME TO A NUMBER AND THE MISSING NUMBERS WERE 3 BUT I WANT 5TH MISING NUMBER
+OBVIOUSLY
+IT WOULD BE IN THE RIGHT SIDE
+SO LOW=MID+1, VICE VERSA FOR HIGH*/
